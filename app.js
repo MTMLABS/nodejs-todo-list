@@ -1,6 +1,7 @@
 import express from "express";
 import connect from "./schemas/index.js";
-import todosRouter from "./routes/todos.router.js";
+import postRouter from "./routes/posts.router.js";
+import commentRouter from "./routes/comments.router.js";
 
 const app = express();
 const PORT = 3000;
@@ -11,15 +12,13 @@ connect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("./assets"));
-
 const router = express.Router();
 
 router.get("/", (req, res) => {
   return res.json({ message: "Hi!" });
 });
 
-app.use("/api", [router, todosRouter]);
+app.use("/api", [router, postRouter, commentRouter]);
 
 app.listen(PORT, () => {
   console.log(PORT, "포트로 서버가 열렸어요!");
